@@ -1,0 +1,17 @@
+import subprocess as proc
+import qrcode
+
+
+def Share_Files_QR(file):
+    qr = qrcode.QRCode(
+        version=1,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(f"http:192.168.0.105:4000/file/{file}")
+    qr.make(fit=True)
+    qr.make_image().save("qrcode.png")
+    proc.call(f"share-file-qr {file}", stderr=proc.STDOUT)
+
+
+Share_Files_QR("main.py")
